@@ -5,10 +5,10 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email'];
 
     include '../classes/dbh.c.php';
-    include '../classes/signup.c.php';
-    include '../classes/signup_ctrl.c.php';
+    include '../classes/signup_login.c.php';
+    include '../classes/signup_login_ctrl.c.php';
 
-    $signup = new SignUpCtrl($uname, $pwd, $email);
+    $signup = new SignUpLoginCtrl($uname, $pwd, $email);
     $signup->signUpUser();
 
     header('location: ../index.php?error=none');

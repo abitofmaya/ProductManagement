@@ -1,6 +1,6 @@
 <?php
 
-class SignUpCtrl extends SignUp
+class SignUpLoginCtrl extends SignUpLogin
 {
     private $uname;
     private $pwd;
@@ -35,6 +35,23 @@ class SignUpCtrl extends SignUp
         $this->setUser($this->uname, $this->pwd, $this->email);
     }
 
+    public function logUser()
+    {
+        if ($this->emptyInput() == false) {
+            header('location: ../index.php?error=emptyinput');
+            exit();
+        }
+        if ($this->invalidUname() == false) {
+            header('location: ../index.php?error=invalidUsername');
+            exit();
+        }
+        if ($this->existCheck() == false) {
+            header('location: ../index.php?error=noexist');
+            exit();
+        }
+        $this->getUser($this->uname, $this->pwd);
+    }
+
     // Check for empty submission
     private function emptyInput()
     {
@@ -47,7 +64,7 @@ class SignUpCtrl extends SignUp
     // Check for invalid username; lowercase letters and numbers only; length 32 charachers
     private function invalidUname()
     {
-        if (!preg_match("/^[a-z][a-z0-9]{7,31}$/", $this->uname)) {
+        if (!preg_match("/^[a-z][a-z0-9]{2,31}$/", $this->uname)) {
             return false;
         }
         return true;
@@ -62,10 +79,10 @@ class SignUpCtrl extends SignUp
         return true;
     }
 
-    // Check if email already registered
+    // Check if user and email are already registered
     private function existCheck()
     {
-        if (!$this->checkUser($this->email)) {
+        if (!$this->checkUser($this->uname, $this->email)) {
             return false;
         }
         return true;

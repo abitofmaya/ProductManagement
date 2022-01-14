@@ -7,7 +7,7 @@ class Dbh
     private $password;
     private $dbname;
 
-    public function __consruct()
+    protected function __consruct()
     {
         $this->servername = "localhost";
         $this->username = "root";
@@ -17,10 +17,11 @@ class Dbh
 
     protected function connect()
     {
-
         try {
-            $dbh = new PDO('mysql:host=' . $this->servername . ';dbname=' . $this->dbname, $this->username, $this->password);
-            return $dbh;
+            $dsn = 'mysql:host=' . $this->servername . ';dbname=' . $this->dbname;
+            $pdo = new PDO($dsn, $this->username, $this->password);
+
+            return $pdo;
         } catch (PDOException $e) {
             print 'Error!' . $e->getMessage() . '<br>';
         }
