@@ -16,29 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `users`
+-- Table structure for table `products`
 --
 
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `products`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `users` (
-  `uid` int unsigned NOT NULL AUTO_INCREMENT,
-  `uname` varchar(32) NOT NULL,
-  `pwd` varchar(256) NOT NULL,
-  `email` varchar(128) NOT NULL,
-  PRIMARY KEY (`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `products` (
+  `pid` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) DEFAULT NULL,
+  `sku` varchar(256) DEFAULT NULL,
+  `description` varchar(256) DEFAULT NULL,
+  `price` varchar(256) DEFAULT NULL,
+  `status` varchar(45) DEFAULT NULL,
+  `size` varchar(45) DEFAULT NULL,
+  `category` varchar(45) DEFAULT NULL,
+  `files` longtext,
+  PRIMARY KEY (`pid`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `users`
+-- Dumping data for table `products`
 --
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (16,'testuser1','$2y$10$LY5tpVvwTipsKUVbdyEDFOE2cYcWd3RZvHemAemJ7rCNy5K.u8u0W','testemail1@live.com'),(17,'testuser2','$2y$10$YeylMYLzRWWz2zN6RfopWexRo650cTbxgmMNhSkY0BgKMHPkoTT3K','testemail2@live.com');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+LOCK TABLES `products` WRITE;
+/*!40000 ALTER TABLE `products` DISABLE KEYS */;
+INSERT INTO `products` VALUES (1,'some product','a:1:{i:0;s:6:\"1245gh\";}','desc','a:1:{i:0;s:3:\"sdf\";}','available','a:1:{i:0;s:1:\"7\";}','clothing','a:1:{i:0;s:36:\"photo-1453728013993-6d66e9c9123a.jpg\";}'),(2,'product1','a:2:{i:0;s:4:\"12ad\";i:1;s:4:\"12da\";}','description','a:2:{i:0;s:3:\"425\";i:1;s:3:\"145\";}','available','a:2:{i:0;s:1:\"7\";i:1;s:1:\"8\";}','clothing','a:1:{i:0;s:23:\"pexels-photo-674010.jpg\";}');
+/*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-14 17:15:21
+-- Dump completed on 2022-01-20 13:34:02

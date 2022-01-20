@@ -1,0 +1,52 @@
+.add-btn {
+    background-color: #059862;
+    border: none;
+    color: white;
+    padding: 2px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 3px;
+    width: 30px;
+}
+
+.add-btn:hover {
+    background-color: #036541;
+}
+
+.input-box,
+.btn {
+    margin: 3px 2px;
+}
+
+label {
+    display: inline-block;
+    width: 90px;
+    text-align: right;
+}
+
+.common {
+    border-left: 5px solid green;
+    margin-left: 3px;
+}
+
+.index-signup {
+    position: absolute;
+    left: 3%;
+}
+
+.index-login {
+    position: absolute;
+    left: 35%;
+}
+
+.index-logout {
+    position: absolute;
+    top: 15%;
+}
+
+.index-create {
+    position: absolute;
+    top: 20%;
+}
