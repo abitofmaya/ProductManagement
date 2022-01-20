@@ -41,12 +41,7 @@ label {
     left: 35%;
 }
 
-.index-logout {
-    position: absolute;
-    top: 15%;
-}
-
 .index-create {
     position: absolute;
-    top: 20%;
+    top: 150%;
 }

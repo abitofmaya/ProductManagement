@@ -35,49 +35,42 @@ session_start();
                 </form>
             </div>
             <div class="index-login common">
-                <form action="includes/login.php" method="POST">
-                    <div>
-                        <input class="input-box" type="text" name="uname" id="uname_id" placeholder="Username or Email">
-                    </div>
-                    <div>
-                        <input class="input-box" type="password" name="pwd" id="pwd_id" placeholder="Password">
-                    </div>
-                    <div>
-                        <?php
-                        if (isset($_SESSION['id'])) {
-                        ?>
-                            <button class="btn" type="submit" name="login" disabled>Log In</button>
-                        <?php
-                        } else {
-                        ?>
-                            <button class="btn" type="submit" name="login">Log In</button>
-                        <?php
-                        }
-                        ?>
-                    </div>
-                </form>
-            </div>
-            <div class="index-logout">
-                <form action="includes/logout.php" method="POST">
-                    <div>
-                        <?php
-                        if (isset($_SESSION['id'])) {
-                        ?>
+                <?php
+                if (isset($_SESSION['id'])) {
+                ?>
+                    <form action="includes/logout.php" method="POST">
+                        <div>
+                            <input class="input-box" type="text" name="uname" id="uname_id" placeholder="Username or Email" disabled>
+                        </div>
+                        <div>
+                            <input class="input-box" type="password" name="pwd" id="pwd_id" placeholder="Password" disabled>
+                        </div>
+                        <div>
                             <button class="btn" type="submit" name="logout"><?php echo 'Log out ' . $_SESSION['uname']; ?></button>
-                        <?php
-                        } else {
-                        ?>
-                            <button class="btn" type="submit" name="logout">Not logged</button>
-                        <?php
-                        }
-                        ?>
+                        </div>
+                    </form>
+                    <div class="index-create">
+                        <div>
+                            <a href="./pages/create_product.php">Create a product</a>
+                        </div>
                     </div>
-                </form>
-            </div>
-            <div class="index-create">
-                <div>
-                    <a href="./pages/create_product.php">Create a product</a>
-                </div>
+                <?php
+                } else {
+                ?>
+                    <form action="includes/login.php" method="POST">
+                        <div>
+                            <input class="input-box" type="text" name="uname" id="uname_id" placeholder="Username or Email">
+                        </div>
+                        <div>
+                            <input class="input-box" type="password" name="pwd" id="pwd_id" placeholder="Password">
+                        </div>
+                        <div>
+                            <button class="btn" type="submit" name="login">Log In</button>
+                        </div>
+                    </form>
+                <?php
+                }
+                ?>
             </div>
         </div>
     </section>
