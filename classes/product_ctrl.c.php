@@ -20,7 +20,7 @@ class ProductCtrl extends Product
     private $errors;
     private $uploadedFiles;
 
-    public function __construct($name, $sku, $description, $price, $status, $size, $category)
+    public function setProperties($name, $sku, $description, $price, $status, $size, $category)
     {
         parent::__consruct();
 
@@ -43,6 +43,12 @@ class ProductCtrl extends Product
         $this->uploadedFiles = array();
     }
 
+    public function displayProduct()
+    {
+        parent::__consruct();
+
+        return $this->getProducts();
+    }
 
     public function validateUpload()
     {

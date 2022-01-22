@@ -67,9 +67,12 @@ session_start();
                 }
                 ?>
             </div>
-            <div class="index-create">
+            <div class="index-links">
                 <div>
                     <a href="./pages/create_product.php">Create a product</a>
+                </div>
+                <div>
+                    <a href="./pages/view_product.php">View products</a>
                 </div>
             </div>
         </div>

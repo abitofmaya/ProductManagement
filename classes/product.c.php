@@ -14,4 +14,27 @@ class Product extends Dbh
         }
         $stmt = null;
     }
+
+    protected function getProducts()
+    {
+        $sql = 'SELECT * FROM  `products`';
+        $stmt = $this->connect()->prepare($sql);
+
+        if (!$stmt->execute()) { // use array() for multiple parameters
+            $stmt = null;
+            header('location: ../pages/view_product.php?error=stmtfailed');
+            exit();
+        }
+
+        if ($stmt->rowCount() == 0) {
+            $stmt = null;
+            header('location: ../pages/view_product.php?error=noProductsFound');
+            exit();
+        }
+
+        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt = null;
+
+        return $products;
+    }
 }
