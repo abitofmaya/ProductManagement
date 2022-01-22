@@ -49,11 +49,6 @@ session_start();
                             <button class="btn" type="submit" name="logout"><?php echo 'Log out ' . $_SESSION['uname']; ?></button>
                         </div>
                     </form>
-                    <div class="index-create">
-                        <div>
-                            <a href="./pages/create_product.php">Create a product</a>
-                        </div>
-                    </div>
                 <?php
                 } else {
                 ?>
@@ -71,6 +66,11 @@ session_start();
                 <?php
                 }
                 ?>
+            </div>
+            <div class="index-create">
+                <div>
+                    <a href="./pages/create_product.php">Create a product</a>
+                </div>
             </div>
         </div>
     </section>

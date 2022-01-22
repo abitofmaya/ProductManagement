@@ -31,17 +31,10 @@ label {
     margin-left: 3px;
 }
 
-.index-signup {
-    position: absolute;
-    left: 3%;
-}
-
-.index-login {
-    position: absolute;
-    left: 35%;
-}
-
-.index-create {
-    position: absolute;
-    top: 150%;
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 600px;
+    margin: 0 auto;
+    gap: 20px;
 }

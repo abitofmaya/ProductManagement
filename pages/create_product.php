@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once('../includes/session.php');
 ?>
 
@@ -21,8 +20,7 @@ require_once('../includes/session.php');
 
 <body>
     <section class="product">
-        <div class="wrapper">
-            <div class="product_create"></div>
+        <div class="product_create">
             <form action="../includes/create.php" method="POST" enctype="multipart/form-data">
                 <div>
                     <label>Name:</label>
