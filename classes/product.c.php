@@ -4,13 +4,39 @@ class Product extends Dbh
 {
     protected function setProduct($name, $sku, $description, $price, $status, $size, $category, $uploadedFiles)
     {
-        $sql = 'INSERT INTO  `products` (`name`,`sku`,`description`,`price`,`status`,`size`,`category`,`files`) VALUES (?,?,?,?,?,?,?,?)';
-        $stmt = $this->connect()->prepare($sql);
+        $pdo = $this->connect();
 
-        if (!$stmt->execute(array($name, serialize($sku), $description, serialize($price), $status, serialize($size), $category, serialize($uploadedFiles)))) { // use array() for multiple parameters
+        $sql = 'INSERT INTO  `products` (`name`,`description`,`status`,`category`) VALUES (?,?,?,?)';
+        $stmt = $pdo->prepare($sql);
+
+        if (!$stmt->execute(array($name, $description, $status, $category))) {
             $stmt = null;
             header('location: ../pages/create_product.php?error=stmtfailed');
             exit();
+        }
+
+        $last_insert_id = $pdo->lastInsertId();
+
+        $sql = 'INSERT INTO  `products-items` (`pid`, `sku`, `size`, `price`, `status`) VALUES (?,?,?,?,?)';
+        $stmt = $pdo->prepare($sql);
+
+        foreach ($sku as $key => $value) {
+            if (!$stmt->execute(array($last_insert_id, $value, $size[$key], $price[$key], $status))) {
+                $stmt = null;
+                header('location: ../pages/create_product.php?error=stmtfailed');
+                exit();
+            }
+        }
+
+        $sql = 'INSERT INTO  `products-images` (`pid`, `files`, `status`) VALUES (?,?,?)';
+        $stmt = $pdo->prepare($sql);
+
+        foreach ($uploadedFiles as $file) {
+            if (!$stmt->execute(array($last_insert_id, $file, $status))) {
+                $stmt = null;
+                header('location: ../pages/create_product.php?error=stmtfailed');
+                exit();
+            }
         }
         $stmt = null;
     }

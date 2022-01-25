@@ -19,7 +19,7 @@ if (isset($_POST['create'])) {
     $product->setProperties(null, $name, $sku, $description, $price, $status, $size, $category);
 
     if (!$product->validateUpload()) {
-        header('location: ../pages/create_product.php?status=failed');
+        header('location: ../pages/create_product.php?status=failedValidation');
         exit();
     }
 
