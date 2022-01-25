@@ -72,6 +72,9 @@ session_start();
                     <a href="./pages/create_product.php">Create a product</a>
                 </div>
                 <div>
+                    <a href="./pages/update_product.php">Update product</a>
+                </div>
+                <div>
                     <a href="./pages/view_product.php">View products</a>
                 </div>
             </div>

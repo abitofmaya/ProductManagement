@@ -13,15 +13,15 @@ require_once('../includes/session.php');
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="../css/minimal.css" />
 
-    <script src="../js/addEntry.js"></script>
+    <script src="../js/insertField.js"></script>
 
-    <title>Create a product</title>
+    <title>Update Product</title>
 </head>
 
-<body>
+<body onload="insertField()">
 
     <?php
-    require_once('./create_update_form.php');
+    include_once('./create_update_form.php')
     ?>
 
 </body>

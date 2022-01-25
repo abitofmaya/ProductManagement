@@ -2,6 +2,7 @@
 
 class ProductCtrl extends Product
 {
+    private $pid;
     private $name;
     private $sku;
     private $description;
@@ -20,10 +21,11 @@ class ProductCtrl extends Product
     private $errors;
     private $uploadedFiles;
 
-    public function setProperties($name, $sku, $description, $price, $status, $size, $category)
+    public function setProperties(?int $pid, $name, $sku, $description, $price, $status, $size, $category)
     {
         parent::__consruct();
 
+        $this->pid = $pid;
         $this->name = $name;
         $this->sku = $sku;
         $this->description = $description;
@@ -72,11 +74,26 @@ class ProductCtrl extends Product
         }
 
         // Check for any errors
-        if ($this->checkErrors()) {
-            $this->Upload();
-            $this->setProduct($this->name, $this->sku, $this->description, $this->price, $this->status, $this->size, $this->category, $this->uploadedFiles);
-            $this->uploadStatus();
+        if (!$this->checkErrors()) {
+            return false;
         }
+        $this->Upload();
+        return true;
+    }
+
+    public function createProduct()
+    {
+        $this->setProduct($this->name, $this->sku, $this->description, $this->price, $this->status, $this->size, $this->category, $this->uploadedFiles);
+    }
+
+    public function updatePrdct()
+    {
+        $this->updateProduct($this->pid, $this->name, $this->sku, $this->description, $this->price, $this->status, $this->size, $this->category, $this->uploadedFiles);
+    }
+
+    public function removeImgs()
+    {
+        $this->removeImages($this->pid);
     }
 
     private function checkSize($key, $name)
@@ -129,7 +146,7 @@ class ProductCtrl extends Product
         }
     }
 
-    private function uploadStatus()
+    public function uploadStatus()
     {
         if (count($this->uploadedFiles) > 0) {
             echo "<b>Uploaded Files:</b>";

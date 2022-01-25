@@ -49,8 +49,29 @@ a {
     color: #d4d4d4;
 }
 
-img {
+.display-img {
     border-radius: 10%;
     width: 200px;
     height: 200px;
+}
+
+.placeholder-img {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 200px;
+    background-color: #333333;
+    border-radius: 5px;
+    margin: 3px;
+    padding: 5px;
+}
+
+.select-img {
+    border-radius: 10%;
+    width: 42px;
+    height: 42px;
+}
+
+.select-img:hover {
+    width: 43px;
+    height: 43px;
 }

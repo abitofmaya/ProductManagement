@@ -5,8 +5,9 @@ include '../classes/dbh.c.php';
 include '../classes/product.c.php';
 include '../classes/product_ctrl.c.php';
 
-if (isset($_POST['create'])) {
+if (isset($_POST['update'])) {
 
+    $pid = $_POST['pid'];
     $name = $_POST['name'];
     $sku = $_POST['sku'];
     $description = $_POST['description'];
@@ -15,17 +16,14 @@ if (isset($_POST['create'])) {
     $size = $_POST['size'];
     $category = $_POST['category'];
 
+
     $product = new ProductCtrl();
-    $product->setProperties(null, $name, $sku, $description, $price, $status, $size, $category);
-
-    if (!$product->validateUpload()) {
-        header('location: ../pages/create_product.php?status=failed');
-        exit();
-    }
-
-    $product->createProduct();
+    $product->setProperties($pid, $name, $sku, $description, $price, $status, $size, $category);
+    $product->removeImgs();
+    $product->validateUpload();
+    $product->updatePrdct();
     $product->uploadStatus();
 
-    header('location: ../pages/create_product.php?status=productCreated');
+    header('location: ../pages/update_product.php?status=productUpdated');
     exit();
 }

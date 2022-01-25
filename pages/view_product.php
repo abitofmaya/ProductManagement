@@ -19,6 +19,9 @@ $products = $products->displayProduct();
 
     <link rel="stylesheet" href="../css/minimal.css" />
 
+    <script src="../js/change_image.js"></script>
+
+
     <title>Products</title>
 </head>
 
@@ -28,9 +31,24 @@ $products = $products->displayProduct();
         foreach ($products as $product) {
         ?>
             <div>
-                <!-- <div> <?php echo implode(' ', unserialize($product['files'])) ?>
-                </div> -->
-                <div><img src="../uploads/<?php echo unserialize($product['files'])[0] ?>"></div>
+                <div>
+                    <img id="display-img-id" class="display-img" src=" ../uploads/<?php echo unserialize($product['files'])[0] ?>">
+
+                    <!-- Need some work at this space, probably javascript. Following is just a placeholder -->
+
+                    <div class="placeholder-img">
+                        <?php
+                        foreach (unserialize($product['files']) as $key => $filename) {
+                        ?>
+                            <div>
+                                <img class="select-img" src="../uploads/<?php echo $filename ?>" onclick="nextImage(this, event);">
+                            </div>
+                        <?php
+                        }
+                        ?>
+                    </div>
+
+                </div>
                 <div>Name: <?php echo $product['name'] ?>
                 </div>
                 <div>SKUs: <?php echo implode(' ', unserialize($product['sku'])) ?>

@@ -12,4 +12,5 @@ if (isset($_POST['login'])) {
     $signup->logUser();
 
     header('location: ../index.php?error=none');
+    exit();
 }

@@ -11,5 +11,6 @@ if (isset($_POST['submit'])) {
     $signup = new SignUpLoginCtrl($uname, $pwd, $email);
     $signup->signUpUser();
 
-    header('location: ../index.php?error=none');
+    header('location: ../index.php?status=userRegistered');
+    exit();
 }
