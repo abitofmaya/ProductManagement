@@ -5,7 +5,7 @@ include '../classes/product.c.php';
 include '../classes/product_ctrl.c.php';
 
 $products = new ProductCtrl();
-$products = $products->displayProduct();
+$p_ids = $products->getPID();
 
 ?>
 
@@ -28,20 +28,31 @@ $products = $products->displayProduct();
 <body>
     <div class="wrapper">
         <?php
-        foreach ($products as $product) {
+        foreach ($p_ids as $key => $pid) {
+            $prdcts = $products->displayProduct($pid['pid']);
+
+            $sku = $size = $price = array();
+
+            foreach ($prdcts as $key => $product) {
+                array_push($sku, $product['sku']);
+                array_push($size, $product['size']);
+                array_push($price, $product['price']);
+            }
+
+            $images = $products->getImg($pid['pid']);
         ?>
             <div>
                 <div>
-                    <img id="display-img-id" class="display-img" src=" ../uploads/<?php echo unserialize($product['files'])[0] ?>">
+                    <img id="display-img-id" class="display-img" src=" ../uploads/<?php echo $images[0]['files'] ?>">
 
                     <!-- Need some work at this space, probably javascript. Following is just a placeholder -->
 
                     <div class="placeholder-img">
                         <?php
-                        foreach (unserialize($product['files']) as $key => $filename) {
+                        foreach ($images as $key => $image) {
                         ?>
                             <div>
-                                <img class="select-img" src="../uploads/<?php echo $filename ?>" onclick="nextImage(this, event);">
+                                <img class="select-img" src="../uploads/<?php echo $image['files'] ?>" onclick="nextImage(this, event);">
                             </div>
                         <?php
                         }
@@ -51,15 +62,15 @@ $products = $products->displayProduct();
                 </div>
                 <div>Name: <?php echo $product['name'] ?>
                 </div>
-                <div>SKUs: <?php echo implode(' ', unserialize($product['sku'])) ?>
+                <div>SKUs: <?php echo implode(' ', $sku) ?>
                 </div>
                 <div>Description: <?php echo $product['description'] ?>
                 </div>
-                <div>Prices: <?php echo implode(' ', unserialize($product['price'])) ?>
+                <div>Prices: <?php echo implode(' ', $price) ?>
                 </div>
                 <div>Status: <?php echo $product['status'] ?>
                 </div>
-                <div>Sizes: <?php echo implode(' ', unserialize($product['size'])) ?>
+                <div>Sizes: <?php echo implode(' ', $size) ?>
                 </div>
                 <div>Category: <?php echo $product['category'] ?>
                 </div>

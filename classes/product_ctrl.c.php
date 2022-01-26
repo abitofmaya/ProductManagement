@@ -45,11 +45,20 @@ class ProductCtrl extends Product
         $this->uploadedFiles = array();
     }
 
-    public function displayProduct()
+    public function getPID()
     {
         parent::__consruct();
+        return $this->getAllPID();
+    }
 
-        return $this->getProducts();
+    public function displayProduct($pid)
+    {
+        return $this->getProducts($pid);
+    }
+
+    public function getImg($pid)
+    {
+        return $this->getImages($pid);
     }
 
     public function validateUpload()

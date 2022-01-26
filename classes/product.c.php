@@ -41,12 +41,41 @@ class Product extends Dbh
         $stmt = null;
     }
 
-    protected function getProducts()
+    protected function getAllPID()
     {
-        $sql = 'SELECT * FROM  `products`';
+        $sql = 'SELECT `pid` FROM `products`';
         $stmt = $this->connect()->prepare($sql);
 
-        if (!$stmt->execute()) { // use array() for multiple parameters
+        if (!$stmt->execute()) {
+            $stmt = null;
+            header('location: ../pages/view_product.php?error=stmtfailed');
+            exit();
+        }
+
+        if ($stmt->rowCount() == 0) {
+            $stmt = null;
+            header('location: ../pages/view_product.php?error=noProductsFound');
+            exit();
+        }
+
+        $pid = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt = null;
+
+        return $pid;
+    }
+
+    protected function getProducts($pid)
+    {
+        $sql = 'SELECT p.*, i.sku, i.size, i.price
+                FROM products as p
+                INNER JOIN `products-items` as i
+                ON p.pid=i.pid
+                WHERE p.pid = ?
+                ORDER BY p.pid;';
+
+        $stmt = $this->connect()->prepare($sql);
+
+        if (!$stmt->execute(array($pid))) { // use array() for multiple parameters
             $stmt = null;
             header('location: ../pages/view_product.php?error=stmtfailed');
             exit();
@@ -62,6 +91,32 @@ class Product extends Dbh
         $stmt = null;
 
         return $products;
+    }
+
+    protected function getImages($pid)
+    {
+        $sql = 'SELECT `products-images`.files
+                FROM `products-images`
+                where pid = ?';
+
+        $stmt = $this->connect()->prepare($sql);
+
+        if (!$stmt->execute(array($pid))) {
+            $stmt = null;
+            header('location: ../pages/view_product.php?error=stmtfailed');
+            exit();
+        }
+
+        if ($stmt->rowCount() == 0) {
+            $stmt = null;
+            header('location: ../pages/view_product.php?error=noProductsFound');
+            exit();
+        }
+
+        $images = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt = null;
+
+        return $images;
     }
 
     protected function updateProduct($pid, $name, $sku, $description, $price, $status, $size, $category, $uploadedFiles)
