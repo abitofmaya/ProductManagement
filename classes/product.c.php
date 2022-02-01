@@ -121,20 +121,42 @@ class Product extends Dbh
 
     protected function updateProduct($pid, $name, $sku, $description, $price, $status, $size, $category, $uploadedFiles)
     {
-        $sql = 'UPDATE `products` SET `name`=?,`sku`=?,`description`=?,`price`=?,`status`=?,`size`=?,`category`=?,`files`=? WHERE `pid` = ?';
+        $sql = 'UPDATE `products` SET `name`=?, `description`=?, `status`=?, `category`=? WHERE `pid` = ?';
         $stmt = $this->connect()->prepare($sql);
 
-        if (!$stmt->execute(array($name, serialize($sku), $description, serialize($price), $status, serialize($size), $category, serialize($uploadedFiles), $pid))) { // use array() for multiple parameters
+        if (!$stmt->execute(array($name, $description, $status, $category, $pid))) {
             $stmt = null;
             header('location: ../pages/create_product.php?error=stmtfailed');
             exit();
+        }
+
+        $sql = 'UPDATE `products-items` SET `price`=?,`status`=?,`size`=? WHERE `pid` = ? AND `sku`= ?';
+        $stmt = $this->connect()->prepare($sql);
+
+        foreach ($sku as $key => $value) {
+            if (!$stmt->execute(array($price[$key], $status, $size[$key], $pid, $value))) {
+                $stmt = null;
+                header('location: ../pages/create_product.php?error=stmtfailed');
+                exit();
+            }
+        }
+
+        $sql = 'UPDATE `products-images` SET `status`=?, `files`=? WHERE `pid` = ?';
+        $stmt = $this->connect()->prepare($sql);
+
+        foreach ($uploadedFiles as $file) {
+            if (!$stmt->execute(array($status, $file, $pid))) {
+                $stmt = null;
+                header('location: ../pages/create_product.php?error=stmtfailed');
+                exit();
+            }
         }
         $stmt = null;
     }
 
     protected function removeImages($pid)
     {
-        $sql = 'SELECT `files` FROM  `products` WHERE `pid`= ?';
+        $sql = 'SELECT `files` FROM  `products-images` WHERE `pid`= ?';
         $stmt = $this->connect()->prepare($sql);
 
         if (!$stmt->execute(array($pid))) { // use array() for multiple parameters
@@ -151,8 +173,12 @@ class Product extends Dbh
 
         $files = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        foreach (unserialize($files[0]['files']) as $file) {
-            unlink('../uploads/' . $file);
+        foreach ($files as $key => $file) {
+            try {
+                unlink('../uploads/' . $file['files']);
+            } catch (Exception $e) {
+                // Do nothing if files don't exist.
+            }
         }
         $stmt = null;
     }

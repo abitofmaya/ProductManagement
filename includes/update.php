@@ -24,6 +24,6 @@ if (isset($_POST['update'])) {
     $product->updatePrdct();
     $product->uploadStatus();
 
-    header('location: ../pages/update_product.php?status=productUpdated');
+    header('refresh:5; url=../pages/update_product.php?status=productUpdated');
     exit();
 }

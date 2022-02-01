@@ -169,6 +169,7 @@ class ProductCtrl extends Product
 
             $url = htmlspecialchars($_SERVER['HTTP_REFERER']);
             echo "<a href='$url'>Go Back</a>";
+            echo 'Redirects in 5 seconds';
         }
     }
 }

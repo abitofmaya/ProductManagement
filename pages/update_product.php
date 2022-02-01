@@ -14,6 +14,7 @@ require_once('../includes/session.php');
     <link rel="stylesheet" href="../css/minimal.css" />
 
     <script src="../js/insertField.js"></script>
+    <script src="../js/addEntry.js"></script>
 
     <title>Update Product</title>
 </head>

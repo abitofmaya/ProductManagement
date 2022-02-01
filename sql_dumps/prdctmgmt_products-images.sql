@@ -16,30 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `products`
+-- Table structure for table `products-images`
 --
 
-DROP TABLE IF EXISTS `products`;
+DROP TABLE IF EXISTS `products-images`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `products` (
-  `pid` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) DEFAULT NULL,
-  `description` varchar(256) DEFAULT NULL,
+CREATE TABLE `products-images` (
+  `pid` int NOT NULL,
+  `files` varchar(128) NOT NULL,
   `status` varchar(45) DEFAULT NULL,
-  `category` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`pid`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `fk_img_prd_idx` (`pid`),
+  CONSTRAINT `fk_img_prd` FOREIGN KEY (`pid`) REFERENCES `products` (`pid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `products`
+-- Dumping data for table `products-images`
 --
 
-LOCK TABLES `products` WRITE;
-/*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (6,'Lens','Camera lens','available','Electronics'),(7,'Toy robot','Playable robots','available','Toys');
-/*!40000 ALTER TABLE `products` ENABLE KEYS */;
+LOCK TABLES `products-images` WRITE;
+/*!40000 ALTER TABLE `products-images` DISABLE KEYS */;
+INSERT INTO `products-images` VALUES (7,'dogtoy.jpg','available'),(7,'dogtoy.jpg','available'),(6,'photo-1453728013993-6d66e9c9123a.jpg','available');
+/*!40000 ALTER TABLE `products-images` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
